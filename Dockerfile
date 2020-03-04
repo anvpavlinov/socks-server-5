@@ -33,7 +33,7 @@ RUN chmod u+x /usr/local/bin/docker-entrypoint.sh && \
     chgrp 0 /usr/local/bin/docker-entrypoint.sh && \
     chmod g=u /usr/local/bin/docker-entrypoint.sh /etc/passwd
 
-USER ss5
+USER 1000
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 1080
