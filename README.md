@@ -28,9 +28,3 @@ docker run --name ss5-proxy -p 1080:1080 --restart=always -d localhost:5000/sock
 ```
 $ firewall-cmd --permanent --add-port=1080/tcp
 $ firewall-cmd --reload
-```
-
-### View connection log
-```
-$ docker logs ss5-proxy
-```
