@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## socks-server-5
 Socks5 proxy server for Docker container.
 
@@ -30,6 +31,10 @@ docker run --name ss5-proxy -p 1080:1080 --restart=always -d localhost:5000/sock
 ```
 $ firewall-cmd --permanent --add-port=1080/tcp
 $ firewall-cmd --reload
+=======
+# socks-server-5
+Socks5 proxy server
+>>>>>>> parent of 81001e4... add Dockerfile, passwd file and entrypoint script
 =======
 # socks-server-5
 Socks5 proxy server
