@@ -25,8 +25,8 @@ RUN yum -y install yum-utils wget gcc gcc-c++ automake make pam-devel openssl-de
     && sed -i "/#permit/a\permit u 0.0.0.0\/0 - 0.0.0.0\/0 - - - - -" /etc/opt/ss5/ss5.conf \
     && rm -rf /etc/opt/ss5/ss5.passwd \
     && touch /var/log/ss5/ss5.log \
-    && chown -R ss5:root /var/log/ss5 \
-    && chown -R ss5:root /var/run/ss5
+    && chown -R ss5:root /var/log/ss5 && chmod -R ug+rw /var/log/ss5 \
+    && chown -R ss5:root /var/run/ss5 && chmod -R ug+rw /var/run/ss5
 
 COPY ./ss5.passwd /etc/opt/ss5/ss5.passwd
 
