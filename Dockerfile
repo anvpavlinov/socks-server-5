@@ -29,11 +29,11 @@ RUN yum -y install yum-utils wget gcc gcc-c++ automake make pam-devel openssl-de
 COPY ./ss5.passwd /etc/opt/ss5/ss5.passwd
 
 COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod u+x /usr/local/bin/docker-entrypoint.sh && \
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
     chgrp 0 /usr/local/bin/docker-entrypoint.sh && \
     chmod g=u /usr/local/bin/docker-entrypoint.sh /etc/passwd
 
-USER 1000
+USER ss5
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 1080
