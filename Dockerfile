@@ -2,7 +2,7 @@ FROM centos:7.7.1908
 MAINTAINER apavlinov <anvpavlinov@gmail.com>
 ENV SS5_VERSION 3.8.9-8
 
-RUN groupadd -r ss5 && useradd -r -g ss5 -s /sbin/nologin ss5
+RUN groupadd -r -g 1000 ss5 && useradd -r -g ss5 -u 1000 -s /sbin/nologin ss5
 
 RUN yum -y install yum-utils wget gcc gcc-c++ automake make pam-devel openssl-devel openldap-devel cyrus-sasl-devel \
     && wget -O ss5.tar.gz "http://downloads.sourceforge.net/project/ss5/ss5/$SS5_VERSION/ss5-$SS5_VERSION.tar.gz" \
@@ -31,7 +31,7 @@ COPY ./ss5.passwd /etc/opt/ss5/ss5.passwd
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-USER ss5:ss5
+USER ss5
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 1080
