@@ -31,6 +31,7 @@ COPY ./ss5.passwd /etc/opt/ss5/ss5.passwd
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
+USER ss5:ss5
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 1080
