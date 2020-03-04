@@ -2,10 +2,6 @@ FROM centos:7.7.1908
 MAINTAINER apavlinov <anvpavlinov@gmail.com>
 ENV SS5_VERSION 3.8.9-8
 
-USER root
-
-RUN groupadd -r -g 1000 ss5 && useradd -r -g ss5 -u 1000 -s /sbin/nologin ss5
-
 RUN yum -y install yum-utils wget gcc gcc-c++ automake make pam-devel openssl-devel openldap-devel cyrus-sasl-devel \
     && wget -O ss5.tar.gz "http://downloads.sourceforge.net/project/ss5/ss5/$SS5_VERSION/ss5-$SS5_VERSION.tar.gz" \
     && mkdir -p /usr/src/ss5 \
@@ -24,20 +20,13 @@ RUN yum -y install yum-utils wget gcc gcc-c++ automake make pam-devel openssl-de
     && sed -i "/#auth/a\auth 0.0.0.0\/0 - u" /etc/opt/ss5/ss5.conf \
     && sed -i "/#permit/a\permit u 0.0.0.0\/0 - 0.0.0.0\/0 - - - - -" /etc/opt/ss5/ss5.conf \
     && rm -rf /etc/opt/ss5/ss5.passwd \
-    && touch /var/log/ss5/ss5.log \
-    && chown -R ss5:root /var/log/ss5 && chmod -R ug+rw /var/log/ss5 \
-    && chown -R ss5:root /var/run/ss5 && chmod -R ug+rw /var/run/ss5
+    && touch /var/log/ss5/ss5.log
 
 COPY ./ss5.passwd /etc/opt/ss5/ss5.passwd
 
 COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
-    chgrp 0 /usr/local/bin/docker-entrypoint.sh && \
-    chmod g=u /usr/local/bin/docker-entrypoint.sh /etc/passwd &&\
-    chmod g+w /etc/passwd
-   
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-USER ss5
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 1080
